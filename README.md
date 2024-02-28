@@ -5,7 +5,7 @@ DPM-Server is a server for the DPM-Client. It is a simple server that can be use
 To install the server, you need to have the following installed:
 - cargo (Rust)
 ```
-cargo install dpm-server
+cargo install DPM-Server
 ```
 
 ## Useage
