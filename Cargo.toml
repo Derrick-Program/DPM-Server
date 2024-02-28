@@ -1,8 +1,14 @@
 [package]
+repository = "https://github.com/Derrick-Program/DPM-Server"
 name = "DPM-Server"
 version = "0.1.0"
 edition = "2021"
-
+author = "Derrick Lin"
+description = "DPM-Server is a server for the DPM-Client. It is a simple server that can be used to store and retrieve files from the DPM-Client."
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["dpm", "repo", "Server", "self", "system"]
+categories = ["Command-line-utilities"]
 [[bin]]
 name = "dpm-server"
 path = "src/main.rs"
