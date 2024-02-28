@@ -1,0 +1,26 @@
+[package]
+name = "DPM-Server"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "dpm-server"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anstyle = "1.0.6"
+anyhow = "1.0.80"
+clap = { version = "4.5.1", features = ["derive"] }
+clap_complete = "4.5.1"
+colored = "2.1.0"
+digest = "0.10.7"
+flate2 = "1.0.28"
+hex = "0.4.3"
+hex-literal = "0.4.1"
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.114"
+sha2 = "0.10.8"
+walkdir = "2.4.0"
+zip = "0.6.6"
