@@ -9,8 +9,6 @@ pub enum Commands {
     Build(Build),
     ///Create Project
     Init(Init),
-    /// Run all
-    All(All),
 }
 
 #[derive(Args, Debug)]
@@ -23,12 +21,6 @@ pub struct Hash {
 pub struct Build {
     /// Project Name
     pub packagename: String,
-}
-#[derive(Args, Debug)]
-pub struct All {
-    #[arg(long, short = 'n')]
-    /// Project Name
-    pub packagename: Option<String>,
 }
 #[derive(Args, Debug)]
 pub struct Init {

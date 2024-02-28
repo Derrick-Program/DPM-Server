@@ -118,11 +118,6 @@ pub fn init(obj: &Init) -> Result<()> {
     Ok(())
 }
 
-pub fn all(obj: &All) -> Result<()> {
-    println!("All\n{obj:#?}");
-    Ok(())
-}
-
 pub fn fix(obj: &Fix) -> Result<()> {
     match &obj.command {
         FixAction::Add(obj) => fix_add(obj)?,
@@ -134,19 +129,40 @@ pub fn fix(obj: &Fix) -> Result<()> {
 fn fix_add(obj: &Add) -> Result<()> {
     let repo = current_dir()?.join("RepoInfo.json");
     let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
-    let project = current_dir()?.join("Repo/src").join(&obj.project_name);
-    if !project.exists() {
+    let path = std::env::current_dir()?
+        .join("Repo/src")
+        .join(&obj.project_name);
+    let package = current_dir()?
+        .join("Repo")
+        .join(format!("{}.zip", &obj.project_name));
+    if !package.exists() {
         return Err(anyhow::anyhow!(
             "\nPackage: {} {}",
-            format!("{}", &obj.project_name).yellow(),
+            format!("{}", &package.display()).yellow(),
             "Not found!".red()
         ));
     }
-    // println!("{:#?}", project);
+    let pk_info: PackageInfo = JsonStorage::from_json(&path.join("packageInfo.json"))?;
+
+    let data: RepoInfo = RepoInfo::new(
+        format!("{}.zip", pk_info.package_name),
+        pk_info.version,
+        pk_info.description,
+        hasher(&package)?,
+        format!(
+            "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}.zip",
+            &obj.project_name
+        ),
+    );
+    repo_info.insert(obj.project_name.clone().to_string(), data);
+    JsonStorage::to_json(&repo_info, &repo)?;
     Ok(())
 }
 fn fix_del(obj: &Del) -> Result<()> {
-    println!("{:#?}", obj);
+    let repo = current_dir()?.join("RepoInfo.json");
+    let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
+    repo_info.remove(&obj.project_name);
+    JsonStorage::to_json(&repo_info, &repo)?;
     Ok(())
 }
 
@@ -154,27 +170,29 @@ pub fn repo_init() -> Result<()> {
     let repo = current_dir()?.join("RepoInfo.json");
     let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
     let ret = find_zip_files_and_names_in_repo()?;
-    // println!("{:#?}", ret);
-    for (_, name) in ret {
-        let name = name.trim_end_matches(".zip");
-        let project = current_dir()?.join("Repo/src").join(&name);
-        println!("{:#?}", project);
+    for (path, name) in ret {
+        let name_witout_zip = name.trim_end_matches(".zip");
+        let project = current_dir()?.join("Repo/src").join(&name_witout_zip);
         if !project.exists() {
             return Err(anyhow::anyhow!(
                 "\nPackage: {} {}",
-                format!("{}", &name).yellow(),
+                format!("{}", &name_witout_zip).yellow(),
                 "Not found!".red()
             ));
         }
-        let pk_info = File::create(&project.join("packageInfo.json"))?;
-        let pk_info: PackageInfo = JsonStorage::from_json(&pk_info)?;
+        let pk_info: PackageInfo = JsonStorage::from_json(&project.join("packageInfo.json"))?;
         let data: RepoInfo = RepoInfo::new(
-            pk_info.package_name,
+            format!("{}.zip", pk_info.package_name),
             pk_info.version,
             pk_info.description,
-            pk_info.hash,
+            hasher(&path)?,
+            format!(
+                "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}",
+                name
+            ),
         );
-        // repo_info
+        repo_info.insert(name_witout_zip.to_string(), data);
+        JsonStorage::to_json(&repo_info, &repo)?;
     }
 
     Ok(())

@@ -1,1 +1,9 @@
-{}
+{
+  "test": {
+    "file_name": "test.zip",
+    "version": "0.1.0",
+    "description": "This is Test",
+    "hash": "8d449e25afac09632e7505996c0027086ff2b8584f383053a99dba854d8d5602",
+    "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip"
+  }
+}

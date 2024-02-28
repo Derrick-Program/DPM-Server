@@ -43,7 +43,6 @@ fn main() -> Result<()> {
         Commands::Fix(obj) => fix(obj)?,
         Commands::Build(obj) => build(obj)?,
         Commands::Init(obj) => init(obj)?,
-        Commands::All(obj) => all(obj)?,
     }
     Ok(())
 }
