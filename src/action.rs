@@ -1,3 +1,4 @@
+#![allow(warnings)]
 use crate::*;
 use anyhow::Result as AnyhowResult;
 use colored::Colorize;

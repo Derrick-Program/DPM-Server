@@ -1,3 +1,4 @@
+#![allow(warnings)]
 use std::fs::File;
 use std::io::{self, BufReader, Read};
 use std::path::Path;
