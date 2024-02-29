@@ -1,7 +1,7 @@
 {
   "package_name": "test",
-  "file_name": "main.py",
+  "file_name": "main.sh",
   "version": "0.1.0",
-  "description": "This is Test",
-  "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  "description": "description",
+  "hash": "1b8957c2eae40d4f0f7d11d19f6e2e881ca1de439b1676e40b8e71444388cbf6"
 }
