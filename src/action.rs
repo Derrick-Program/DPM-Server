@@ -38,17 +38,15 @@ pub fn hash(obj: &Hash) -> AnyhowResult<()> {
         if path.is_file() && path != hashfile {
             counter += 1;
             let hash = hasher(&path)?;
+            let relative_path = path.strip_prefix(&project_path).unwrap_or(path);
             println!(
                 "{} {} {} {}",
                 counter,
-                &path.file_name().unwrap().to_str().unwrap().yellow(),
+                relative_path.display().to_string().yellow(),
                 "===>".green(),
                 format!("{}", &hash.bold().blue()),
             );
-            hashes.insert(
-                path.file_name().unwrap().to_str().unwrap().to_string(),
-                hash,
-            );
+            hashes.insert(relative_path.display().to_string(), hash);
         }
     }
     JsonStorage::to_json(&hashes, &hashfile)?;

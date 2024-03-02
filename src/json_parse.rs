@@ -33,16 +33,16 @@ impl PackageInfo {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct HashInfo {
-    pub file_name: String,
-    pub hash: String,
-}
-impl HashInfo {
-    pub fn new(file_name: String, hash: String) -> HashInfo {
-        HashInfo { file_name, hash }
-    }
-}
+// #[derive(Debug, Serialize, Deserialize)]
+// pub struct HashInfo {
+//     pub file_name: String,
+//     pub hash: String,
+// }
+// impl HashInfo {
+//     pub fn new(file_name: String, hash: String) -> HashInfo {
+//         HashInfo { file_name, hash }
+//     }
+// }
 
 pub struct JsonStorage<T> {
     _marker: std::marker::PhantomData<T>,
