@@ -34,8 +34,10 @@ fn main() -> Result<()> {
     let software_repo_info = current_dir()?.join("RepoInfo.json");
     create_dir_all(repo_src)?;
     if !software_repo_info.exists() {
+        println!("Creating RepoInfo.json");
         let mut file = File::create(software_repo_info)?;
         file.write_all(b"{}")?;
+        println!("Created RepoInfo.json");
         repo_init()?;
     }
     match &cli.command {

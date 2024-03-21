@@ -167,6 +167,7 @@ fn fix_del(obj: &Del) -> Result<()> {
 }
 
 pub fn repo_init() -> Result<()> {
+    println!("Initializing Repo...");
     let repo = current_dir()?.join("RepoInfo.json");
     let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
     let ret = find_zip_files_and_names_in_repo()?;
@@ -193,6 +194,7 @@ pub fn repo_init() -> Result<()> {
             pk_info.file_name,
         );
         repo_info.insert(name_witout_zip.to_string(), data);
+        println!("Done...");
         JsonStorage::to_json(&repo_info, &repo)?;
     }
 
