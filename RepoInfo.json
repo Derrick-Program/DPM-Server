@@ -4,6 +4,7 @@
     "version": "0.1.0",
     "description": "description",
     "hash": "044e0d6df9e11672bc18b7517fdc6fb46caa669d7681351274e34d21b2b0e57f",
-    "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip"
+    "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip",
+    "main_file": "main.sh"
   }
 }

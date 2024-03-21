@@ -152,6 +152,7 @@ fn fix_add(obj: &Add) -> Result<()> {
             "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}.zip",
             &obj.project_name
         ),
+        pk_info.file_name,
     );
     repo_info.insert(obj.project_name.clone().to_string(), data);
     JsonStorage::to_json(&repo_info, &repo)?;
@@ -189,6 +190,7 @@ pub fn repo_init() -> Result<()> {
                 "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}",
                 name
             ),
+            pk_info.file_name,
         );
         repo_info.insert(name_witout_zip.to_string(), data);
         JsonStorage::to_json(&repo_info, &repo)?;
