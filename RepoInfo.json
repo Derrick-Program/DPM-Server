@@ -3,8 +3,8 @@
     "file_name": "test.zip",
     "version": "0.1.0",
     "description": "description",
-    "hash": "044e0d6df9e11672bc18b7517fdc6fb46caa669d7681351274e34d21b2b0e57f",
+    "hash": "e1206a15343af50a6e21a310d55614ad7f1a67c1a4e6b7b20e1cfcc6d0cd15e0",
     "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip",
-    "main_file": "main.sh"
+    "entry": "main.sh"
   }
 }
