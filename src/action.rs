@@ -3,7 +3,7 @@ use crate::*;
 use anyhow::Result as AnyhowResult;
 use colored::Colorize;
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::env::current_dir;
 use std::fs::{read_dir, File};
 use std::io::prelude::*;
@@ -19,7 +19,7 @@ pub fn hasher(file_path: &Path) -> Result<String> {
     Ok(hex::encode(result))
 }
 pub fn hash(obj: &Hash) -> AnyhowResult<()> {
-    let project_path = current_dir()?.join("Repo/src").join(&obj.packagename);
+    let project_path = PROJECT_SRC.get().unwrap().join(&obj.packagename);
     let hashfile = &project_path.join("hashes.json");
     let project_info = &project_path.join("packageInfo.json");
     let mut hashes: HashMap<String, String> =
@@ -73,7 +73,7 @@ pub fn hash(obj: &Hash) -> AnyhowResult<()> {
 }
 
 pub fn build(obj: &Build) -> Result<()> {
-    let project_path = current_dir()?.join("Repo/src").join(&obj.packagename);
+    let project_path = PROJECT_SRC.get().unwrap().join(&obj.packagename);
     if !project_path.exists() {
         return Err(anyhow::anyhow!(
             "\nPackage: {} {}",
@@ -112,22 +112,21 @@ pub fn init(obj: &Init) -> Result<()> {
         obj.ver.to_string(),
         obj.description.to_string(),
         hash,
+        None,
     );
     JsonStorage::to_json(&package_info, &project_path.join("packageInfo.json"))?;
     Ok(())
 }
 
-pub fn fix(obj: &Fix) -> Result<()> {
+pub fn fix(obj: &Fix, repo: &mut RepoInfo) -> Result<()> {
     match &obj.command {
-        FixAction::Add(obj) => fix_add(obj)?,
-        FixAction::Del(obj) => fix_del(obj)?,
+        FixAction::Add(obj) => fix_add(obj, repo)?,
+        FixAction::Del(obj) => fix_del(obj, repo)?,
     }
     Ok(())
 }
 
-fn fix_add(obj: &Add) -> Result<()> {
-    let repo = current_dir()?.join("RepoInfo.json");
-    let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
+fn fix_add(obj: &Add, repo: &mut RepoInfo) -> Result<()> {
     let path = std::env::current_dir()?
         .join("Repo/src")
         .join(&obj.project_name);
@@ -143,37 +142,31 @@ fn fix_add(obj: &Add) -> Result<()> {
     }
     let pk_info: PackageInfo = JsonStorage::from_json(&path.join("packageInfo.json"))?;
 
-    let data: RepoInfo = RepoInfo::new(
-        format!("{}.zip", pk_info.package_name),
-        pk_info.version,
-        pk_info.description,
-        hasher(&package)?,
-        format!(
+    let data: PackageBasicInfo = PackageBasicInfo {
+        file_name: format!("{}.zip", pk_info.package_name),
+        version: pk_info.version,
+        hash: hasher(&package)?,
+        url: format!(
             "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}.zip",
             &obj.project_name
         ),
-        pk_info.file_name,
-    );
-    repo_info.insert(obj.project_name.clone().to_string(), data);
-    JsonStorage::to_json(&repo_info, &repo)?;
+        dependencies: pk_info.dependencies,
+    };
+    repo.add_package_with_info(obj.project_name.clone().to_string(), data);
     Ok(())
 }
-fn fix_del(obj: &Del) -> Result<()> {
-    let repo = current_dir()?.join("RepoInfo.json");
-    let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
-    repo_info.remove(&obj.project_name);
-    JsonStorage::to_json(&repo_info, &repo)?;
+fn fix_del(obj: &Del, repo: &mut RepoInfo) -> Result<()> {
+    repo.remove_package(&obj.project_name)?;
+    println!("Package '{}' removed successfully.", &obj.project_name);
     Ok(())
 }
 
-pub fn repo_init() -> Result<()> {
+pub fn repo_init(repo: &mut RepoInfo) -> Result<()> {
     println!("Initializing Repo...");
-    let repo = current_dir()?.join("RepoInfo.json");
-    let mut repo_info: Repos = JsonStorage::from_json(&repo)?;
     let ret = find_zip_files_and_names_in_repo()?;
     for (path, name) in ret {
         let name_witout_zip = name.trim_end_matches(".zip");
-        let project = current_dir()?.join("Repo/src").join(&name_witout_zip);
+        let project = PROJECT_SRC.get().unwrap().join(&name_witout_zip);
         if !project.exists() {
             return Err(anyhow::anyhow!(
                 "\nPackage: {} {}",
@@ -182,20 +175,18 @@ pub fn repo_init() -> Result<()> {
             ));
         }
         let pk_info: PackageInfo = JsonStorage::from_json(&project.join("packageInfo.json"))?;
-        let data: RepoInfo = RepoInfo::new(
-            format!("{}.zip", pk_info.package_name),
-            pk_info.version,
-            pk_info.description,
-            hasher(&path)?,
-            format!(
-                "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}",
-                name
+        let data: PackageBasicInfo = PackageBasicInfo {
+            version: pk_info.version,
+            url: format!(
+                "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/{}.zip",
+                pk_info.package_name
             ),
-            pk_info.file_name,
-        );
-        repo_info.insert(name_witout_zip.to_string(), data);
+            hash: pk_info.hash,
+            file_name: pk_info.file_name,
+            dependencies: pk_info.dependencies,
+        };
+        repo.add_package_with_info(name_witout_zip.to_string(), data);
         println!("Done...");
-        JsonStorage::to_json(&repo_info, &repo)?;
     }
 
     Ok(())
@@ -218,3 +209,34 @@ fn find_zip_files_and_names_in_repo() -> Result<Vec<(PathBuf, String)>> {
 
     Ok(zip_files)
 }
+
+// fn resolve_dependencies_with_install(
+//     package_name: &str,
+//     repo: &mut RepoInfo, // RepoInfo 的所有數據
+//     resolved: &mut HashSet<String>,
+//     seen: &mut HashSet<String>,
+// ) -> Result<()> {
+//     if resolved.contains(package_name) {
+//         return Ok(());
+//     }
+//     if seen.contains(package_name) {
+//         return Err(anyhow::anyhow!(
+//             "Circular dependency detected: {}",
+//             package_name
+//         )); // 檢測到循環依賴
+//     }
+
+//     seen.insert(package_name.to_string());
+//     let package_info = repo.get_package(package_name)?;
+//     if let Some(dependencies) = &package_info.dependencies {
+//         for dependency in dependencies {
+//             resolve_dependencies_with_install(dependency, repo, resolved, seen)?;
+//         }
+//     }
+//     install_package(package_name, repo_info)?;
+
+//     resolved.insert(package_name.to_string());
+//     println!("Resolved and installed: {}", package_name);
+
+//     Ok(())
+// }

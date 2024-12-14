@@ -1,0 +1,18 @@
+{
+  "test": {
+    "file_name": "test.zip",
+    "version": "0.1.0",
+    "description": "description",
+    "hash": "60d106b74ebe7f4fc2c7288522504c5f2df367e6614e78072a620b3e403380c2",
+    "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip",
+    "entry": "main.sh"
+  },
+  "helloWorld": {
+    "file_name": "helloWorld.zip",
+    "version": "0.1.0",
+    "description": "description",
+    "hash": "051fcadcab55354ced3dfe7052fbf68372bd9ba7385bf7f4a88ce2115b7c4608",
+    "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/helloWorld.zip",
+    "entry": "main.py"
+  }
+}
