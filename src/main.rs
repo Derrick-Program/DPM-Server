@@ -23,7 +23,6 @@ pub type Repos = HashMap<String, RepoInfo>;
     long_about = "Derrick Package Manager Server (DPM-Server)",
     styles = get_styles(),
 )]
-
 struct Cli {
     #[command(subcommand)]
     command: Commands,
