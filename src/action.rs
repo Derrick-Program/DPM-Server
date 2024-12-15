@@ -1,9 +1,8 @@
-#![allow(warnings)]
 use crate::*;
 use anyhow::Result as AnyhowResult;
 use colored::Colorize;
 use sha2::{Digest, Sha256};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::env::current_dir;
 use std::fs::{read_dir, File};
 use std::io::prelude::*;
@@ -11,7 +10,7 @@ use std::path::{Path, PathBuf};
 use walkdir::WalkDir;
 pub fn hasher(file_path: &Path) -> Result<String> {
     let mut hasher = Sha256::new();
-    let mut file = File::open(&file_path)?;
+    let mut file = File::open(file_path)?;
     let mut buffer = Vec::new();
     file.read_to_end(&mut buffer)?;
     hasher.update(&buffer);
@@ -23,12 +22,12 @@ pub fn hash(obj: &Hash) -> AnyhowResult<()> {
     let hashfile = &project_path.join("hashes.json");
     let project_info = &project_path.join("packageInfo.json");
     let mut hashes: HashMap<String, String> =
-        JsonStorage::from_json(&hashfile).unwrap_or_else(|_| HashMap::new());
+        JsonStorage::from_json(hashfile).unwrap_or_else(|_| HashMap::new());
     let mut counter: i32 = 0;
     if !project_path.exists() {
         return Err(anyhow::anyhow!(
             "\nPackage: {} {}",
-            format!("{}", obj.packagename).yellow(),
+            obj.packagename.yellow(),
             "Not found!".red()
         ));
     }
@@ -37,38 +36,38 @@ pub fn hash(obj: &Hash) -> AnyhowResult<()> {
         let path = entry.path();
         if path.is_file() && path != hashfile {
             counter += 1;
-            let hash = hasher(&path)?;
+            let hash = hasher(path)?;
             let relative_path = path.strip_prefix(&project_path).unwrap_or(path);
             println!(
                 "{} {} {} {}",
                 counter,
                 relative_path.display().to_string().yellow(),
                 "===>".green(),
-                format!("{}", &hash.bold().blue()),
+                &hash.bold().blue(),
             );
             hashes.insert(relative_path.display().to_string(), hash);
         }
     }
-    JsonStorage::to_json(&hashes, &hashfile)?;
+    JsonStorage::to_json(&hashes, hashfile)?;
     let mut hashes: HashMap<String, String> =
-        JsonStorage::from_json(&hashfile).unwrap_or_else(|_| HashMap::new());
+        JsonStorage::from_json(hashfile).unwrap_or_else(|_| HashMap::new());
     counter += 1;
-    let hash = hasher(&hashfile)?;
+    let hash = hasher(hashfile)?;
     println!(
         "{} {} {} {}",
         counter,
-        &hashfile.file_name().unwrap().to_str().unwrap().yellow(),
+        hashfile.file_name().unwrap().to_str().unwrap().yellow(),
         "===>".green(),
-        format!("{}", &hash.bold().blue()),
+        hash.bold().blue(),
     );
     hashes.insert(
         hashfile.file_name().unwrap().to_str().unwrap().to_string(),
         hash.clone(),
     );
-    JsonStorage::to_json(&hashes, &hashfile)?;
-    let mut package_info: PackageInfo = JsonStorage::from_json(&project_info)?;
+    JsonStorage::to_json(&hashes, hashfile)?;
+    let mut package_info: PackageInfo = JsonStorage::from_json(project_info)?;
     package_info.hash = hash;
-    JsonStorage::to_json(&package_info, &project_info)?;
+    JsonStorage::to_json(&package_info, project_info)?;
     Ok(())
 }
 
@@ -77,7 +76,7 @@ pub fn build(obj: &Build) -> Result<()> {
     if !project_path.exists() {
         return Err(anyhow::anyhow!(
             "\nPackage: {} {}",
-            format!("{}", &obj.packagename).yellow(),
+            obj.packagename.yellow(),
             "Not found!".red()
         ));
     }
@@ -99,10 +98,10 @@ pub fn init(obj: &Init) -> Result<()> {
         return Err(anyhow::anyhow!(
             "\n{} {}",
             format!("{}", project_path.display()).yellow(),
-            format!("exists!").red()
+            "exists!".red()
         ));
     }
-    File::create(&project_path.join(obj.entry.as_str()))?;
+    File::create(project_path.join(obj.entry.as_str()))?;
     let file_path = project_path.join("hashes.json");
     File::create(&file_path)?;
     let hash = hasher(&file_path)?;
@@ -164,13 +163,13 @@ fn fix_del(obj: &Del, repo: &mut RepoInfo) -> Result<()> {
 pub fn repo_init(repo: &mut RepoInfo) -> Result<()> {
     println!("Initializing Repo...");
     let ret = find_zip_files_and_names_in_repo()?;
-    for (path, name) in ret {
+    for (_, name) in ret {
         let name_witout_zip = name.trim_end_matches(".zip");
-        let project = PROJECT_SRC.get().unwrap().join(&name_witout_zip);
+        let project = PROJECT_SRC.get().unwrap().join(name_witout_zip);
         if !project.exists() {
             return Err(anyhow::anyhow!(
                 "\nPackage: {} {}",
-                format!("{}", &name_witout_zip).yellow(),
+                name_witout_zip.yellow(),
                 "Not found!".red()
             ));
         }
@@ -182,7 +181,7 @@ pub fn repo_init(repo: &mut RepoInfo) -> Result<()> {
                 pk_info.package_name
             ),
             hash: pk_info.hash,
-            file_name: pk_info.file_name,
+            file_name: name.clone(),
             dependencies: pk_info.dependencies,
         };
         repo.add_package_with_info(name_witout_zip.to_string(), data);

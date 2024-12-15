@@ -2,15 +2,36 @@
   "packages": {
     "test": {
       "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip",
-      "file_name": "main.sh",
+      "file_name": "test.zip",
       "version": "0.1.0",
-      "hash": "ad64130ff5a2cc5ff9d395cc7fa220a3994b31d959c6486448519de67ae294c3"
+      "hash": "ad64130ff5a2cc5ff9d395cc7fa220a3994b31d959c6486448519de67ae294c3",
+      "dependencies": null
     },
     "helloWorld": {
       "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/helloWorld.zip",
-      "file_name": "main.py",
+      "file_name": "helloWorld.zip",
       "version": "0.1.0",
-      "hash": "a03b4cfcd95b38d11871258da39165d002a20526e3fcea1d492ebc53f247ffa0"
+      "hash": "a03b4cfcd95b38d11871258da39165d002a20526e3fcea1d492ebc53f247ffa0",
+      "dependencies": null
+    },
+    "test1": {
+      "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test1.zip",
+      "file_name": "test1.zip",
+      "version": "0.1.0",
+      "hash": "f8da73d5b053f8a0114c54482cd816c7fdd4aa3241ea061a003391a200391bc0",
+      "dependencies": null
+    },
+    "test2": {
+      "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test2.zip",
+      "file_name": "test2.zip",
+      "version": "0.1.0",
+      "hash": "7136f4aedaa90ab958cd006e4a6193b2a6356935a88cbcdada982536d87cce63",
+      "dependencies": [
+        {
+          "name": "test1",
+          "version": "0.1.0"
+        }
+      ]
     }
   }
 }
