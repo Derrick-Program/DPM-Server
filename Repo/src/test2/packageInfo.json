@@ -2,8 +2,8 @@
   "package_name": "test2",
   "file_name": "main.py",
   "version": "0.1.0",
-  "description": "description",
-  "hash": "4976521d796a62ef01523d74de30f92d98c45c0ad9e8375f24583dbe522d3bad",
+  "description": "This is a test2 package",
+  "hash": "6a396db00aed7bef3d9bc5f449946e0a10b4e156653ee0b462399dce42eed77f",
   "dependencies": [
     {
       "name": "test1",

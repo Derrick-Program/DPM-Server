@@ -2,7 +2,7 @@
   "package_name": "test1",
   "file_name": "main.py",
   "version": "0.1.0",
-  "description": "description",
-  "hash": "f8da73d5b053f8a0114c54482cd816c7fdd4aa3241ea061a003391a200391bc0",
+  "description": "This is a test1 package",
+  "hash": "aa24ba9e308837ff871bed0c65f8f886b373c115ea149b718b70efb5054cbf65",
   "dependencies": null
 }

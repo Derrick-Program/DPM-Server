@@ -2,6 +2,7 @@
   "package_name": "test",
   "file_name": "main.sh",
   "version": "0.1.0",
-  "description": "description",
-  "hash": "ad64130ff5a2cc5ff9d395cc7fa220a3994b31d959c6486448519de67ae294c3"
+  "description": "This is a test package",
+  "hash": "271d63b2eb2a1e344a43f3882af2a53c6b6fb110e747964aeef00ef389cd27b7",
+  "dependencies": null
 }
