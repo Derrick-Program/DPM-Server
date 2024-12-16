@@ -4,7 +4,14 @@
       "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/helloWorld.zip",
       "file_name": "helloWorld.zip",
       "version": "0.1.0",
-      "hash": "5fc36481748d36b6232adb35e9a8419b6cd34336f0ad0d02beec24cdfc2be61b",
+      "hash": "2209d5df8e82a60965f0f8a4e7ba70ab50c60e3d7522bd251caf2f3c9cf21d2f",
+      "dependencies": null
+    },
+    "test1": {
+      "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test1.zip",
+      "file_name": "test1.zip",
+      "version": "0.1.0",
+      "hash": "aa24ba9e308837ff871bed0c65f8f886b373c115ea149b718b70efb5054cbf65",
       "dependencies": null
     },
     "test2": {
@@ -18,13 +25,6 @@
           "version": "0.1.0"
         }
       ]
-    },
-    "test1": {
-      "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test1.zip",
-      "file_name": "test1.zip",
-      "version": "0.1.0",
-      "hash": "aa24ba9e308837ff871bed0c65f8f886b373c115ea149b718b70efb5054cbf65",
-      "dependencies": null
     },
     "test": {
       "url": "https://github.com/Derrick-Program/DPM-Server/raw/main/Repo/test.zip",
