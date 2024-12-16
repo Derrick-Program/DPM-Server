@@ -29,5 +29,7 @@ serde_json = "1.0.114"
 sha2 = "0.10.8"
 walkdir = "2.4.0"
 zip = "0.6.6"
-DPM-Core = { git = "https://github.com/Derrick-Program/DPM-Core", branch = "main" }
+DPM-Core = { git = "https://github.com/Derrick-Program/DPM-Core", branch = "main", features = [
+    "server",
+] }
 anyhow = "1.0.94"
