@@ -33,3 +33,4 @@ DPM-Core = { git = "https://github.com/Derrick-Program/DPM-Core", branch = "main
     "server",
 ] }
 anyhow = "1.0.94"
+thiserror = "2.0.8"

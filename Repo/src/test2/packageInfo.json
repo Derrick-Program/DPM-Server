@@ -3,7 +3,7 @@
   "file_name": "main.py",
   "version": "0.1.0",
   "description": "This is a test2 package",
-  "hash": "3a2be3b6b0d1b05b97b05da2bb16f0041ebd5f0a18b7633b1072c9dfb16fa8ec",
+  "hash": "50380cba6a2d881ad0d7a0396e664f7404a6241736d446081f5e1917717a08cf",
   "dependencies": [
     {
       "name": "test1",
