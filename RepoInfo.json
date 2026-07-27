@@ -21,7 +21,7 @@
       {
         "version": "0.1.0",
         "kind": "source",
-        "build": "if [ \"$(uname)\" = \"Darwin\" ]; then cc -dynamiclib -o \"$OUT/libaddsub.dylib\" src/addsub.c; else cc -shared -fPIC -o \"$OUT/libaddsub.so\" src/addsub.c; fi",
+        "build": "if [ \"Darwin\" = \"Darwin\" ]; then cc -dynamiclib -install_name \"/Users/derrick/Library/Application Support/com.duacodie.dpm/Software/addsub/libaddsub.dylib\" -o \"/libaddsub.dylib\" src/addsub.c; else cc -shared -fPIC -o \"/libaddsub.so\" src/addsub.c; fi",
         "hash": "e5c858ace7f51a48b4e8aa26eb93e61d424311c89f4b1694f70ec739553c3633",
         "supported_targets": [
           "aarch64-apple-darwin",
