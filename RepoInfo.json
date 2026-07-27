@@ -16,6 +16,23 @@
         "author": "alice",
         "signature": "0410d23e7519811d07f85d47e727502632aa2e0bd40a3b14581672260d474464fa899cd5f6d0dcc502b3f653ad751d85aa1da341fac01253a062899f5ec16b0f"
       }
+    ],
+    "addsub": [
+      {
+        "version": "0.1.0",
+        "kind": "source",
+        "build": "if [ \"$(uname)\" = \"Darwin\" ]; then cc -dynamiclib -o \"$OUT/libaddsub.dylib\" src/addsub.c; else cc -shared -fPIC -o \"$OUT/libaddsub.so\" src/addsub.c; fi",
+        "hash": "e5c858ace7f51a48b4e8aa26eb93e61d424311c89f4b1694f70ec739553c3633",
+        "supported_targets": [
+          "aarch64-apple-darwin",
+          "x86_64-unknown-linux-gnu",
+          "aarch64-unknown-linux-gnu"
+        ],
+        "dependencies": null,
+        "description": "C add/subtract shared library",
+        "author": "alice",
+        "signature": "eb1a3f379255a5eb1b29249cb345d159345fb488933e64119f1c62f5a26f185aefe8b5ceacc19d90773ddfe4bb585633021261cc3d27447342195e09c2ebc20d"
+      }
     ]
   }
 }
