@@ -3,8 +3,8 @@
   "file_name": "bin/hello",
   "version": "0.1.0",
   "description": "simple universal hello package",
-  "hash": "64d393559f9000d94cdcb65825a073ec1ac8a78689498abdb3f52e9c2e6a3635",
+  "hash": "3a545b6fdc74e9cc616aca56b1e5a23994c72bd6664e1cfbdc4c97c0e40a7927",
   "dependencies": null,
   "author": "alice",
-  "signature": "dc49e2a0f63aef155209266e992ef4b972d21e8dc2a8990183a3fbc5d8d5cfbaf8789af97a2b1ebb5cf43d346df773a5f63718e6b026dc1c40501ecfd2f5a60b"
+  "signature": "226ef1040ac7b54c1ed9f939433b06064970cfafc5b638dc581c67af8bb0b13d630ecdf68e95c3b8b5b2519cfa40fe6d2a4c0c02c4af477d6af93227e520460f"
 }
