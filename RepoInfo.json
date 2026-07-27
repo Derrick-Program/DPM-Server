@@ -23,7 +23,7 @@
         "kind": "prebuilt",
         "builds": [
           {
-            "url": "https://raw.githubusercontent.com/Derrick-Program/DPM-Server/main/Repo/hello.zip",
+            "url": "https://raw.githubusercontent.com/Derrick-Program/DPM-Server/0a250d7/Repo/hello.zip",
             "hash": "b343bdeb4e812cdc15690375387d4e4fecabe23ba22af28e1ef798790ccd426a",
             "file_name": "hello.zip"
           }
