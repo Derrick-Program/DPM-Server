@@ -1,22 +1,5 @@
 {
   "packages": {
-    "hello": [
-      {
-        "version": "0.1.0",
-        "kind": "prebuilt",
-        "builds": [
-          {
-            "url": "https://raw.githubusercontent.com/Derrick-Program/DPM-Server/main/Repo/hello.zip",
-            "hash": "65b03dea60e79508fe1b7539d30d6f53beb6fda08ec297c149d8fb6ff6436557",
-            "file_name": "hello.zip"
-          }
-        ],
-        "dependencies": null,
-        "description": "simple universal hello package",
-        "author": "alice",
-        "signature": "215ab4c98674505c2b86c5fccd55e7a900ecf3ee284412581f9309b75e32437a8e5ad32302521efa396da7cd543c8e3f88bc5af67bc16962d843f1c843d3c20b"
-      }
-    ],
     "addsub": [
       {
         "version": "0.1.0",
@@ -32,6 +15,23 @@
         "description": "C add/subtract shared library",
         "author": "alice",
         "signature": "45d1ab612c016e1dc085e8df17f38798f91c3e7c5e0b9251174783b0473832638892aa18d7f386c2d418d9e750f18188225dad760af830b6acac746bb2273d0a"
+      }
+    ],
+    "hello": [
+      {
+        "version": "0.1.0",
+        "kind": "prebuilt",
+        "builds": [
+          {
+            "url": "https://raw.githubusercontent.com/Derrick-Program/DPM-Server/main/Repo/hello.zip",
+            "hash": "b1850be6dc15d7eca445d814eff3d8c311570c0801cb4dd9519dc925384a9fd3",
+            "file_name": "hello.zip"
+          }
+        ],
+        "dependencies": null,
+        "description": "simple universal hello package",
+        "author": "alice",
+        "signature": "f4dbc7b974889fa7199a9888f4b6c2bb15cc8792c31b0b2e0243278502a1f694a2517a5c8094e6894d0b4ccdb28ce41c2094c0c56d6f163d16b78c11d77e110e"
       }
     ]
   }
