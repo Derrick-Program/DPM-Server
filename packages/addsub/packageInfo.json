@@ -3,8 +3,8 @@
   "file_name": "lib/libaddsub.dylib",
   "version": "0.1.0",
   "description": "C add/subtract shared library",
-  "hash": "9c393a86807ced03732442b44af9f6ca510e1b4f03cac663d70193040b741048",
+  "hash": "41a99a53d666a87bb845814ba79d060e2ebd90faad30e2143db8584b40bc628f",
   "dependencies": null,
   "author": "alice",
-  "signature": "0561a9fae541727187f661ceec6836f19d3e1edd2ad00406dff5a52e3156d0c56b81e0ef53d01d25d6df41cd05728bfb3537ae07bc46f04652cdde4309113c0e"
+  "signature": "45d1ab612c016e1dc085e8df17f38798f91c3e7c5e0b9251174783b0473832638892aa18d7f386c2d418d9e750f18188225dad760af830b6acac746bb2273d0a"
 }
