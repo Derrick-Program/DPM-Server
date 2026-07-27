@@ -1,3 +1,21 @@
 {
-  "packages": {}
+  "packages": {
+    "hello": [
+      {
+        "version": "0.1.0",
+        "kind": "prebuilt",
+        "builds": [
+          {
+            "url": "https://raw.githubusercontent.com/Derrick-Program/DPM-Server/main/Repo/hello.zip",
+            "hash": "742b6fa6faba18916a99d22e8c03ab042dffe142d4799202525906eb273c1445",
+            "file_name": "hello.zip"
+          }
+        ],
+        "dependencies": null,
+        "description": "simple universal hello package",
+        "author": "alice",
+        "signature": "0410d23e7519811d07f85d47e727502632aa2e0bd40a3b14581672260d474464fa899cd5f6d0dcc502b3f653ad751d85aa1da341fac01253a062899f5ec16b0f"
+      }
+    ]
+  }
 }
